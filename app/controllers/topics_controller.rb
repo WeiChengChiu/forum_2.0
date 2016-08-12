@@ -11,6 +11,8 @@ class TopicsController < ApplicationController
   end
 
   def show
+    @comments = @topic.comments.all
+    @comment = @topic.comments.new
   end
 
   def create
@@ -18,7 +20,7 @@ class TopicsController < ApplicationController
     @topics = Topic.all
 
     if @topic.save
-      flash[:notice] = "Successfuly created!!"
+      flash[:notice] = "Created successfuly!!"
       redirect_to topics_path
     else
       render :index
@@ -30,7 +32,7 @@ class TopicsController < ApplicationController
 
   def update
     if @topic.update(topic_params)
-      flash[:notice] = "Successfuly update!!"
+      flash[:notice] = "Update successfuly!!"
       redirect_to topics_path
     else
       render :edit
@@ -39,7 +41,7 @@ class TopicsController < ApplicationController
 
   def destroy
     @topic.destroy
-    flash[:alert] = "Successfuly delete!!"
+    flash[:alert] = "Deleted successfuly!!"
     redirect_to topics_path
   end
 
