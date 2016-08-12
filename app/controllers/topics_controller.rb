@@ -7,17 +7,17 @@ class TopicsController < ApplicationController
 
   def index
     @topic = Topic.new
-    @topics = Topic.all
+    @topics = Topic.page(params[:page]).per(10)
   end
 
   def show
-    @comments = @topic.comments.all
+    @comments = @topic.comments.page(params[:page]).per(10)
     @comment = @topic.comments.new
   end
 
   def create
     @topic = Topic.new(topic_params)
-    @topics = Topic.all
+    @topics = Topic.page(params[:page]).per(10)
 
     if @topic.save
       flash[:notice] = "Created successfuly!!"
